@@ -62,6 +62,8 @@ namespace EnrgyOverviewApp_WPF
             fakeTagHeute.Content = heute;
 
             TextAktivieren();
+            Autoscroll();
+            FarbeSetzten();
         }
 
         // wenn in er Textbox Enter gedrückt wurde, mache...
@@ -75,9 +77,17 @@ namespace EnrgyOverviewApp_WPF
                 Files.SaveMonth();
             }
             
-           
         }
-
+        public void FarbeSetzten()
+        {
+            if (heute > 1) datenStrom[0, heute-1].Background = new SolidColorBrush(Colors.Gray);
+            if (heute < 31) datenStrom[0, heute+1].Background = new SolidColorBrush(Colors.Gray);
+            datenStrom[0, heute].Background = new SolidColorBrush(Colors.DarkSlateGray);
+        }
+        public void Autoscroll()
+        {
+            scroll.ScrollToVerticalOffset(heute * 50 - 290);
+        }
         public void NeuenWertEintragen()
         {
             // datenStrom[0, heute].Content = datum;                       // aktuelles Datum
@@ -97,20 +107,27 @@ namespace EnrgyOverviewApp_WPF
         private void TagMinus(object sender, RoutedEventArgs e)
         {
             heute--;
-            if (heute <1) heute = 1;
-            fakeTagHeute.Content = heute;
-            tag = Convert.ToString(heute);
-            AktuellesDatum.Content = Convert.ToString(heute) + "." + monat + "." + jahr;
-            TextAktivieren();
+            if (heute < 1) heute = 1;
+            TagSetzen();
+            
         }
         private void TagPlus(object sender, RoutedEventArgs e)
         {
             heute++;
             if(heute > 31) heute = 31;
+            TagSetzen();
+
+        }
+
+        public void TagSetzen()
+        {
+            
             fakeTagHeute.Content = heute;
             tag = Convert.ToString(heute);
             AktuellesDatum.Content = Convert.ToString(heute) + "." + monat + "." + jahr;
             TextAktivieren();
+            Autoscroll();
+            FarbeSetzten();
         }
 
         public void DatenEintragen()
