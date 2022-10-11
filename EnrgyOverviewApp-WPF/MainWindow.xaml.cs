@@ -26,6 +26,8 @@ namespace EnrgyOverviewApp_WPF
         public static string    systemzeit, datum, tag, monat, jahr; // Systemzeit in einzelne Teile zerlegen...
         public static string    fileName;
         public static string[] monate = new string[500];
+        public static bool ersterStart = true;                      // Wird das Programm zum ersten mal gestartet? ...
+        public static int merkerAktuellerWert, durchschnitt,wert1,wert2,ergebnis;
 
         public MainWindow()
         {
@@ -54,6 +56,9 @@ namespace EnrgyOverviewApp_WPF
             
             fileName = monat + "-" + jahr + ".txt";     //Name der Monatsberichtsdatei
             Files.LoadMonthList();                      // Liste der vorhandenen Monate laden
+            
+            Files.LoadLetzterEintrag();  // TEST
+
             Files.LoadMonth();
             DatenEintragen();
 
@@ -64,25 +69,71 @@ namespace EnrgyOverviewApp_WPF
             TextAktivieren();
             Autoscroll();
             FarbeSetzten();
+                       
         }
 
         // wenn in er Textbox Enter gedrückt wurde, mache...
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
+            
+            string testString = txt_Box_Zaehlerstand.Text;
             // ist die Taste  = RETURN?
             if (e.Key == Key.Return)
             {
-                NeuenWertEintragen();
-                DatenEintragen(); // Test..
-                Files.SaveMonth();
+                if (testString != "")
+                {
+                    NeuenWertEintragen();
+                    DatenEintragen(); // Test..
+                    Files.SaveMonth();
+                } else MessageBox.Show("Leere Eingabe ist nicht möglich!");
+            }
+
+
+
+            for (int i = 0; i < testString.Length; i++)
+            {
+                // if (testString[i] == '0') MessageBox.Show("Null gedrückt!");
+
+                int test1 = (int)testString[i];
+                if (test1 < 48 || test1 > 57)
+                {
+                    MessageBox.Show("Falsche Eingabe! Nur Zahlen sind erlaubt!");
+                    testString = testString.Substring(0, testString.Length - 1);
+                    txt_Box_Zaehlerstand.Text = testString;
+                }
             }
             
         }
+        //TextBox_KeyUp
+        private void TextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            string testString = txt_Box_Zaehlerstand.Text;
+            for (int i = 0; i < testString.Length; i++)
+            {
+                int test1 = (int)testString[i];
+                if (test1 < 48 || test1 > 57)
+                {
+                    //MessageBox.Show("Falsche Eingabe! Nur Zahlen sind erlaubt!");
+                    testString = testString.Substring(0, testString.Length - 1);
+                    txt_Box_Zaehlerstand.Text = testString;
+                    TextAktivieren();
+                }
+            }
+            e.Handled = true;
+
+        }
         public void FarbeSetzten()
         {
-            if (heute > 1) datenStrom[0, heute-1].Background = new SolidColorBrush(Colors.Gray);
-            if (heute < 31) datenStrom[0, heute+1].Background = new SolidColorBrush(Colors.Gray);
-            datenStrom[0, heute].Background = new SolidColorBrush(Colors.DarkSlateGray);
+            if (heute > 1)
+            {
+                for (int i = 0; i < 5; i++)  datenStrom[i, heute - 1].Background = new SolidColorBrush(Colors.Gray);
+            }
+            if (heute < 31)
+            {
+                for (int i = 0; i < 5; i++) datenStrom[i, heute + 1].Background = new SolidColorBrush(Colors.Gray);
+            }
+            for (int i = 0; i < 5; i++) datenStrom[i, heute].Background = new SolidColorBrush(Colors.DarkSlateGray);
+            
         }
         public void Autoscroll()
         {
@@ -90,19 +141,103 @@ namespace EnrgyOverviewApp_WPF
         }
         public void NeuenWertEintragen()
         {
-            // datenStrom[0, heute].Content = datum;                       // aktuelles Datum
-            datenStrom[0, heute].Content = Convert.ToString(heute) + "." + monat + "." + jahr; // Test um an beliebigen Datum eintragen zu können...
-            datenS[0, heute] = Convert.ToString(heute) + "." + monat + "." + jahr; // Test um an beliebigen Datum eintragen zu können...]
-            datenStrom[1, heute].Content = txt_Box_Zaehlerstand.Text;   // eingetragener Zählerstand
+            // datenStrom[0, heute].Content = datum;                                            // aktuelles Datum
+            datenStrom[0, heute].Content = Convert.ToString(heute) + "." + monat + "." + jahr;  // Test um an beliebigen Datum eintragen zu können...
+            datenS[0, heute] = Convert.ToString(heute) + "." + monat + "." + jahr;              // Test um an beliebigen Datum eintragen zu können...]
+            datenStrom[1, heute].Content = txt_Box_Zaehlerstand.Text;                           // eingetragener Zählerstand
 
             //datenS[0,heute] = datum;  deaktiviert für Test!
             datenS[1,heute] = txt_Box_Zaehlerstand.Text;
+            // merkerAktuellerWert = Convert.ToInt32(txt_Box_Zaehlerstand.Text);                   // Aktueller Wert für die Berechnung von den Durchschnittswerten
+            if (ersterStart == false) WerteBerechnen();
 
-            txt_Box_Zaehlerstand.Text = "Zählerstand?";
+            //Als letzten Eintrag in das Array füllen
+            datenS[0,32] = Convert.ToString(heute) + "." + monat + "." + jahr;
+            datenS[1,32] = txt_Box_Zaehlerstand.Text;
+            Files.SaveLetzterEintrag();
+            if (ersterStart == true)
+            {
+                datenS[0, 0] = datenS[0, 32];
+                datenS[1, 0] = datenS[1, 32];
+                datenS[2, 0] = datenS[2, 32];
+                datenS[3, 0] = datenS[3, 32];
+                datenS[4, 0] = datenS[4, 32];
+                ersterStart = false; 
+            }
+
+            txt_Box_Zaehlerstand.Text = "";
             TextAktivieren();
+        }
 
+        public void WerteBerechnen()
+        {
+            if (datenS[1, heute-1] != "")                      // Ausführen, wenn am Vortag ein Wert eingetragen ist
+            {
+                wert1 = Convert.ToInt32(datenS[1, heute]);    // Aktueller Eintrag
+                wert2 = Convert.ToInt32(datenS[1, heute-1]);  // Eintrag vom Vortag
+                ergebnis = wert1 - wert2;
+                datenS[2, heute] = Convert.ToString(ergebnis); // Differenz zum Vortag eintragen
+            }
+
+            // Durchschnitt für den Monat berechnen und eintragen
+            wert1 = 0;
+            for (int i = 1; i <=heute; i++)
+            {
+                if (datenS[2, i] != "")
+                {
+                    wert2 = Convert.ToInt32(datenS[2, i]);
+                    wert1 += wert2;
+                }
+            }
+            ergebnis = wert1 / heute;
+            for (int i = 1; i <= heute; i++)
+            {
+                datenS[4, i] = Convert.ToString(ergebnis);
+            }
+
+            // Differenz zum letzten Eintrag
+            wert1 = 0;
+            wert2 = 0;
+            int zaehler = 0;
+            int merker = 1;
+
+            if (datenS[1, heute - 1] == "")
+            {
+                for (int i = 1; i < heute; i++)
+                {
+
+                    if (datenS[1, i] == "")
+                    {
+                        zaehler = i;
+                        merker = heute - zaehler + 1;
+                        break;
+                        // merker++;
+
+                    }
+
+                }
+                wert1 = Convert.ToInt32(datenS[1, heute]);            // Aktueller Eintrag
+                wert2 = Convert.ToInt32(datenS[1, heute - merker]);  // letzter Eintrag
+
+                ergebnis = (wert1 - wert2) / merker;
+            
+                for (int i = zaehler; i <= heute; i++)
+                {
+                    datenS[3, i] = Convert.ToString(ergebnis);
+                }
+                datenS[2, heute] = Convert.ToString(ergebnis);
+            }
+            else datenS[3, heute] = datenS[2, heute];
+
+
+            // Letzten Eintrag in das Array schreiben
+            datenS[2, 32] = datenS[2, heute];
+            datenS[3, 32] = datenS[3, heute];
+            datenS[4, 32] = datenS[4, heute];
 
         }
+
+      
 
         private void TagMinus(object sender, RoutedEventArgs e)
         {
@@ -146,7 +281,8 @@ namespace EnrgyOverviewApp_WPF
         {
             //TextBox direkt aktiviern und den Text selektieren
             txt_Box_Zaehlerstand.Focus();
-            txt_Box_Zaehlerstand.SelectAll();
+            txt_Box_Zaehlerstand.Select(txt_Box_Zaehlerstand.Text.Length, 0);
+            
         }
         public void DatenStromInArray()
         {
@@ -297,77 +433,43 @@ namespace EnrgyOverviewApp_WPF
 
 
             // Durchschnitt Monat
-            datenStrom[3, 1] = r1c4;
-            datenStrom[3, 2] = r2c4;
-            datenStrom[3, 3] = r3c4;
-            datenStrom[3, 4] = r4c4;
-            datenStrom[3, 5] = r5c4;
-            datenStrom[3, 6] = r6c4;
-            datenStrom[3, 7] = r7c4;
-            datenStrom[3, 8] = r8c4;
-            datenStrom[3, 9] = r9c4;
-            datenStrom[3, 10] = r10c4;
+            datenStrom[4, 1] = r1c5;
+            datenStrom[4, 2] = r2c5;
+            datenStrom[4, 3] = r3c5;
+            datenStrom[4, 4] = r4c5;
+            datenStrom[4, 5] = r5c5;
+            datenStrom[4, 6] = r6c5;
+            datenStrom[4, 7] = r7c5;
+            datenStrom[4, 8] = r8c5;
+            datenStrom[4, 9] = r9c5;
+            datenStrom[4, 10] = r10c5;
 
-            datenStrom[3, 11] = r11c4;
-            datenStrom[3, 12] = r12c4;
-            datenStrom[3, 13] = r13c4;
-            datenStrom[3, 14] = r14c4;
-            datenStrom[3, 15] = r15c4;
-            datenStrom[3, 16] = r16c4;
-            datenStrom[3, 17] = r17c4;
-            datenStrom[3, 18] = r18c4;
-            datenStrom[3, 19] = r19c4;
-            datenStrom[3, 20] = r20c4;
+            datenStrom[4, 11] = r11c5;
+            datenStrom[4, 12] = r12c5;
+            datenStrom[4, 13] = r13c5;
+            datenStrom[4, 14] = r14c5;
+            datenStrom[4, 15] = r15c5;
+            datenStrom[4, 16] = r16c5;
+            datenStrom[4, 17] = r17c5;
+            datenStrom[4, 18] = r18c5;
+            datenStrom[4, 19] = r19c5;
+            datenStrom[4, 20] = r20c5;
 
-            datenStrom[3, 21] = r21c4;
-            datenStrom[3, 22] = r22c4;
-            datenStrom[3, 23] = r23c4;
-            datenStrom[3, 24] = r24c4;
-            datenStrom[3, 25] = r25c4;
-            datenStrom[3, 26] = r26c4;
-            datenStrom[3, 27] = r27c4;
-            datenStrom[3, 28] = r28c4;
-            datenStrom[3, 29] = r29c4;
-            datenStrom[3, 30] = r30c4;
+            datenStrom[4, 21] = r21c5;
+            datenStrom[4, 22] = r22c5;
+            datenStrom[4, 23] = r23c5;
+            datenStrom[4, 24] = r24c5;
+            datenStrom[4, 25] = r25c5;
+            datenStrom[4, 26] = r26c5;
+            datenStrom[4, 27] = r27c5;
+            datenStrom[4, 28] = r28c5;
+            datenStrom[4, 29] = r29c5;
+            datenStrom[4, 30] = r30c5;
 
-            datenStrom[3, 31] = r31c4;
+            datenStrom[4, 31] = r31c5;
 
 
-            // Durchschnitt Monat
-            datenStrom[4, 1] = r1c4;
-            datenStrom[4, 2] = r2c4;
-            datenStrom[4, 3] = r3c4;
-            datenStrom[4, 4] = r4c4;
-            datenStrom[4, 5] = r5c4;
-            datenStrom[4, 6] = r6c4;
-            datenStrom[4, 7] = r7c4;
-            datenStrom[4, 8] = r8c4;
-            datenStrom[4, 9] = r9c4;
-            datenStrom[4, 10] = r10c4;
-
-            datenStrom[4, 11] = r11c4;
-            datenStrom[4, 12] = r12c4;
-            datenStrom[4, 13] = r13c4;
-            datenStrom[4, 14] = r14c4;
-            datenStrom[4, 15] = r15c4;
-            datenStrom[4, 16] = r16c4;
-            datenStrom[4, 17] = r17c4;
-            datenStrom[4, 18] = r18c4;
-            datenStrom[4, 19] = r19c4;
-            datenStrom[4, 20] = r20c4;
-
-            datenStrom[4, 21] = r21c4;
-            datenStrom[4, 22] = r22c4;
-            datenStrom[4, 23] = r23c4;
-            datenStrom[4, 24] = r24c4;
-            datenStrom[4, 25] = r25c4;
-            datenStrom[4, 26] = r26c4;
-            datenStrom[4, 27] = r27c4;
-            datenStrom[4, 28] = r28c4;
-            datenStrom[4, 29] = r29c4;
-            datenStrom[4, 30] = r30c4;
-
-            datenStrom[4, 31] = r31c4;
+            
 
         }
 

@@ -11,6 +11,32 @@ namespace EnrgyOverviewApp_WPF
 {
     internal class Files
     {
+
+        public static void SaveLetzterEintrag()
+        {
+            StreamWriter sw1 = new StreamWriter("Letzter Eintrag.txt");
+
+            for (int i = 0; i < 5; i++)
+            {
+               sw1.WriteLine(MainWindow.datenS[i,32]);
+            }
+            sw1.Close();
+        }
+        public static void LoadLetzterEintrag()
+        {
+            if (File.Exists("Letzter Eintrag.txt") == true)
+            {
+                MainWindow.ersterStart = false;     // Das Progamm hat schon Werte in 'Letzter Eintrag.txt' geschrieben...
+                StreamReader sr1 = new StreamReader("Letzter Eintrag.txt");
+
+                for (int i = 0; i < 5; i++)
+                {
+                    MainWindow.datenS[i, 32] = sr1.ReadLine();
+                }
+                sr1.Close();
+            }
+        }
+
         public static void LoadMonth()
         {
             
@@ -50,9 +76,6 @@ namespace EnrgyOverviewApp_WPF
                 }
 
                 sw3.Close();
-           
-          
-
         }
         public static void NewMonthFile()   // Neun Monat beginnen und eine Datei anlegen
         {
@@ -71,6 +94,7 @@ namespace EnrgyOverviewApp_WPF
             sw2.Close();
 
             LoadMonth();
+            LoadLetzterEintrag();
         }
         public static void LoadMonthList()
         {

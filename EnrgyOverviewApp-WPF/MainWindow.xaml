@@ -15,7 +15,7 @@
         <Style TargetType="Label" x:Key="breit">
             <Setter Property="BorderBrush"                  Value="Black"/>
             <Setter Property="BorderThickness"              Value="1"/>
-            <Setter Property="Width"                        Value="290" />
+            <Setter Property="Width"                        Value="304" />
             <Setter Property="Height"                       Value="50" />
             <Setter Property="HorizontalContentAlignment"   Value="Center" />
             <Setter Property="FontSize"                     Value="22" />
@@ -23,8 +23,12 @@
             <Setter Property="Foreground"                   Value="LightGray" />
             <Setter Property="Margin"                       Value="0" />
         </Style>
-        <Style TargetType="Label" x:Key="schmal" BasedOn="{StaticResource breit}">
-            <Setter Property="Width"                        Value="325" />
+        
+
+        <Style TargetType="Label" x:Key="textRechts" BasedOn="{StaticResource breit}">
+            <Setter Property="Width"                        Value="304" />
+            <Setter Property="Padding"                       Value="10 5 100 5" />
+            <Setter Property="HorizontalContentAlignment"   Value="Right" />
         </Style>
     </Window.Resources>
     
@@ -125,8 +129,10 @@
                             FontWeight="Bold"
                             Padding="30 2 2 5"
                             MaxLength="7"
-                            Text="Zählerstand?"
+                            InputScope="Number"
+                            Text=""
                             KeyDown="TextBox_KeyDown"
+                            KeyUp="TextBox_KeyUp"
                             >
                             
                             
@@ -156,231 +162,231 @@
 
 
                             <StackPanel Margin="10" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Style="{StaticResource breit}"  Content="Datum"/>
-                                <Label Style="{StaticResource schmal}" Content="Zählerstand" />
-                                <Label Style="{StaticResource schmal}" Content="Deif. z. letzten Eintrag" />
-                                <Label Style="{StaticResource breit}"  Content="Tagesdurchschnitt" />
-                                <Label Style="{StaticResource breit}"  Content="Durchschn. Monat" />
+                                <Label Style="{StaticResource breit}" Content="Datum"/>
+                                <Label Style="{StaticResource breit}" Content="Zählerstand" />
+                                <Label Style="{StaticResource breit}" Content="Deif. z. letzten Eintrag" />
+                                <Label Style="{StaticResource breit}" Content="Tagesdurchschnitt" />
+                                <Label Style="{StaticResource breit}" Content="Durchschn. Monat" />
                             </StackPanel>
 
 
 
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r1c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r1c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r1c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r1c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r1c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r1c1"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r1c2"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r1c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r1c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r1c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r2c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r2c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r2c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r2c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r2c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r2c1"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r2c2"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r2c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r2c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r2c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r3c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r3c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r3c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r3c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r3c5"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r3c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r3c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r3c3"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r3c4"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r3c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r4c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r4c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r4c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r4c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r4c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r4c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r4c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r4c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r4c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r4c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r5c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r5c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r5c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r5c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r5c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r5c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r5c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r5c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r5c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r5c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r6c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r6c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r6c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r6c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r6c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r6c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r6c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r6c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r6c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r6c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r7c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r7c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r7c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r7c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r7c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r7c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r7c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r7c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r7c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r7c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r8c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r8c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r8c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r8c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r8c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r8c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r8c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r8c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r8c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r8c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r9c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r9c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r9c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r9c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r9c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r9c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r9c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r9c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r9c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r9c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r10c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r10c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r10c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r10c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r10c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r10c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r10c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r10c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r10c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r10c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r11c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r11c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r11c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r11c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r11c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r11c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r11c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r11c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r11c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r11c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r12c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r12c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r12c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r12c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r12c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r12c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r12c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r12c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r12c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r12c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r13c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r13c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r13c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r13c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r13c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r13c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r13c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r13c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r13c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r13c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r14c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r14c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r14c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r14c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r14c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r14c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r14c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r14c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r14c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r14c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r15c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r15c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r15c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r15c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r15c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r15c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r15c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r15c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r15c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r15c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r16c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r16c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r16c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r16c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r16c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r16c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r16c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r16c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r16c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r16c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r17c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r17c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r17c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r17c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r17c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r17c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r17c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r17c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r17c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r17c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r18c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r18c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r18c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r18c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r18c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r18c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r18c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r18c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r18c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r18c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r19c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r19c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r19c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r19c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r19c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r19c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r19c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r19c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r19c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r19c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r20c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r20c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r20c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r20c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r20c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r20c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r20c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r20c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r20c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r20c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r21c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r21c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r21c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r21c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r21c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r21c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r21c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r21c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r21c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r21c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r22c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r22c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r22c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r22c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r22c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r22c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r22c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r22c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r22c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r22c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r23c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r23c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r23c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r23c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r23c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r23c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r23c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r23c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r23c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r23c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r24c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r24c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r24c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r24c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r24c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r24c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r24c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r24c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r24c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r24c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r25c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r25c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r25c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r25c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r25c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r25c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r25c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r25c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r25c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r25c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r26c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r26c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r26c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r26c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r26c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r26c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r26c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r26c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r26c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r26c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r27c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r27c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r27c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r27c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r27c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r27c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r27c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r27c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r27c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r27c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r28c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r28c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r28c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r28c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r28c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r28c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r28c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r28c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r28c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r28c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r29c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r29c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r29c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r29c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r29c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r29c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r29c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r29c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r29c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r29c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r30c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r30c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r30c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r30c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r30c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r30c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r30c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r30c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r30c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r30c5"/>
                             </StackPanel>
                             <StackPanel Margin="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label  Style="{StaticResource breit}"  x:Name="r31c1"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r31c2"/>
-                                <Label  Style="{StaticResource schmal}" x:Name="r31c3"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r31c4"/>
-                                <Label  Style="{StaticResource breit}"  x:Name="r31c5"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r31c1"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r31c2"/>
+                                <Label  Style="{StaticResource textRechts}" x:Name="r31c3"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r31c4"/>
+                                <Label  Style="{StaticResource textRechts}"  x:Name="r31c5"/>
                             </StackPanel>
 
                         </StackPanel>
