@@ -97,9 +97,10 @@ namespace EnrgyOverviewApp_WPF
                 int test1 = (int)testString[i];
                 if (test1 < 48 || test1 > 57)
                 {
-                    MessageBox.Show("Falsche Eingabe! Nur Zahlen sind erlaubt!");
+                    // MessageBox.Show("Falsche Eingabe! Nur Zahlen sind erlaubt!");
                     testString = testString.Substring(0, testString.Length - 1);
                     txt_Box_Zaehlerstand.Text = testString;
+                    TextAktivieren();
                 }
             }
             
@@ -108,6 +109,9 @@ namespace EnrgyOverviewApp_WPF
         private void TextBox_KeyUp(object sender, KeyEventArgs e)
         {
             string testString = txt_Box_Zaehlerstand.Text;
+
+            if (e.Key == Key.Left) TextAktivieren();
+
             for (int i = 0; i < testString.Length; i++)
             {
                 int test1 = (int)testString[i];
@@ -203,29 +207,33 @@ namespace EnrgyOverviewApp_WPF
 
             if (datenS[1, heute - 1] == "")
             {
-                for (int i = 1; i < heute; i++)
+                //for (int i = 1; i < heute; i++)
+                for(int i = heute-1; i > 0; i--)
                 {
-
+                    // MessageBox.Show("I ist : "+Convert.ToString(i) + " Heute :"+ Convert.ToString(heute));
                     if (datenS[1, i] == "")
                     {
                         zaehler = i;
-                        merker = heute - zaehler + 1;
-                        break;
+                        merker ++;
+                        //merker = heute - zaehler + 1;
+                        // break;
                         // merker++;
-
+                        //MessageBox.Show("Gefasst");
                     }
+                    else break;
 
                 }
+                // MessageBox.Show("Zähler ist : "+Convert.ToString(zaehler) + " Merker ist : " + Convert.ToString(merker) );
                 wert1 = Convert.ToInt32(datenS[1, heute]);            // Aktueller Eintrag
-                wert2 = Convert.ToInt32(datenS[1, heute - merker]);  // letzter Eintrag
+                wert2 = Convert.ToInt32(datenS[1, heute-merker]);           // letzter Eintrag
 
-                ergebnis = (wert1 - wert2) / merker;
-            
+                ergebnis = (wert1 - wert2) / (merker);
+                // MessageBox.Show(Convert.ToString(wert1) +" - " + Convert.ToString(wert2) +" = " + Convert.ToString(ergebnis));
                 for (int i = zaehler; i <= heute; i++)
                 {
                     datenS[3, i] = Convert.ToString(ergebnis);
                 }
-                datenS[2, heute] = Convert.ToString(ergebnis);
+                datenS[2, heute] = Convert.ToString(wert1-wert2);
             }
             else datenS[3, heute] = datenS[2, heute];
 
