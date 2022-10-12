@@ -30,7 +30,7 @@ namespace EnrgyOverviewApp_WPF
         public static bool ersterStart = true;                      // Wird das Programm zum ersten mal gestartet? ...
         public static int merkerAktuellerWert, durchschnitt,wert1,wert2,ergebnis;
         public static byte r, g, b;                                  // Rot, Grün, Blau
-        public static int balkenHoehe , bh2;
+        public static int balkenHoehe , bh2, kwMulti=8;
 
         public MainWindow()
         {
@@ -74,10 +74,11 @@ namespace EnrgyOverviewApp_WPF
             FarbeSetzten();
             BalkenZuweisen();
             BalkenBerechnen();
+            lbl_KW.Content = Convert.ToString(25 - kwMulti);
 
 
 
-           }
+        }
 
         // wenn in er Textbox Enter gedrückt wurde, mache...
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
@@ -309,7 +310,7 @@ namespace EnrgyOverviewApp_WPF
                 if (datenS[3, i] != "")
                 {
                     balkenHoehe = Convert.ToInt32(datenS[3, i]);
-                    bh2 = balkenHoehe * 8;   // 13 ist ok ... ich brauche mehr Energie :(
+                    bh2 = balkenHoehe * kwMulti;   // 13 ist ok ... ich brauche mehr Energie :(
                      //MessageBox.Show(Convert.ToString(bh2));
                     r = 0;
                     g = 255;
@@ -563,6 +564,24 @@ namespace EnrgyOverviewApp_WPF
         private void Monat_Plus(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Monat vor!");
+        }
+
+        private void KW_Plus(object sender, RoutedEventArgs e)
+        {
+            kwMulti--;
+            if (kwMulti < 1) kwMulti = 1;
+            lbl_KW.Content = Convert.ToString(25-kwMulti);
+            Files.SaveLetzterEintrag();
+            BalkenBerechnen();
+        }
+
+        private void KW_Minus(object sender, RoutedEventArgs e)
+        {
+            kwMulti++;
+            if (kwMulti >20) kwMulti = 20;
+            lbl_KW.Content = Convert.ToString(25-kwMulti);
+            Files.SaveLetzterEintrag();
+            BalkenBerechnen();
         }
     }
 

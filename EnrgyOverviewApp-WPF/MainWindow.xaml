@@ -420,7 +420,98 @@
 
             <TabItem Header="        Grafik        ">
                <StackPanel Orientation="Vertical">
-                 <StackPanel Margin="10" Height="850" Background="Gray" Orientation="Horizontal">
+                    <StackPanel Margin="10" Height="50" Background="Gray" Orientation="Horizontal">
+                        <StackPanel 
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Left"
+                            Background="LightBlue"  
+                            >
+                            <Button 
+                                Click="Monat_Minus"
+                                Content="     -      "  
+                                Background="IndianRed" 
+                                BorderBrush="Black" 
+                                BorderThickness="1"
+                                />
+
+                            <Label
+                            Width="130"
+                            Height="50"
+                            FontSize="30"
+                            FontWeight="Bold"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            HorizontalContentAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Content="Monat"
+                            >
+
+                            </Label>
+                            <Button
+                                Click="Monat_Plus"
+                                Content="     +      " 
+                                Background="LightGreen" 
+                                BorderBrush="Black" 
+                                BorderThickness="1" >
+                            </Button>
+
+                            <Label
+                            x:Name="lbl_Monat_balken"
+                            Height="50"
+                            Width="300"
+                            Background="Gray"
+                            HorizontalContentAlignment="Center"
+                            FontSize="30"
+                            FontWeight="Bold"
+                            Content="08-2022"
+                            >
+                            </Label>
+
+                           
+
+                            <Label
+                            Width="300"
+                            Height="50"
+                            FontSize="30"
+                            FontWeight="Bold"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            HorizontalContentAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Content="Verbrauch in KW ok:"
+                            >
+
+                            </Label>
+
+                            <Label
+                            x:Name="lbl_KW"
+                            Height="50"
+                            Width="100"
+                            Background="Gray"
+                            HorizontalContentAlignment="Center"
+                            FontSize="30"
+                            FontWeight="Bold"
+                            Content="10"
+                            >
+                            </Label>
+                            <Button
+                                Click="KW_Plus"
+                                Content="     +      " 
+                                Background="LightGreen" 
+                                BorderBrush="Black" 
+                                BorderThickness="1" >
+                            </Button>
+                            <Button 
+                                Click="KW_Minus"
+                                Content="     -      "  
+                                Background="IndianRed" 
+                                BorderBrush="Black" 
+                                BorderThickness="1"
+                                />
+                        </StackPanel>
+
+                    </StackPanel>
+                    <StackPanel Margin="10" Height="800" Background="Gray" Orientation="Horizontal">
                     <Label x:Name="balken1" Style="{StaticResource balken}"/>
                     <Label x:Name="balken2" Style="{StaticResource balken}"/>
                     <Label x:Name="balken3" Style="{StaticResource balken}"/>

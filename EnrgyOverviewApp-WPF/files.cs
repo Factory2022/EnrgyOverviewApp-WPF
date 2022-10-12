@@ -20,6 +20,7 @@ namespace EnrgyOverviewApp_WPF
             {
                sw1.WriteLine(MainWindow.datenS[i,32]);
             }
+            sw1.WriteLine(Convert.ToString(MainWindow.kwMulti));
             sw1.Close();
         }
         public static void LoadLetzterEintrag()
@@ -33,6 +34,7 @@ namespace EnrgyOverviewApp_WPF
                 {
                     MainWindow.datenS[i, 32] = sr1.ReadLine();
                 }
+                MainWindow.kwMulti = Convert.ToInt32(sr1.ReadLine());
                 sr1.Close();
             }
         }
