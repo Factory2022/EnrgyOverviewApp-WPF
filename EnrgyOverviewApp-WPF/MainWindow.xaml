@@ -30,6 +30,26 @@
             <Setter Property="Padding"                       Value="10 5 100 5" />
             <Setter Property="HorizontalContentAlignment"   Value="Right" />
         </Style>
+
+        <!--Style für die Balkenanzeige-->
+        <Style TargetType="Label" x:Key="balken">
+            <Setter Property="Margin"                       Value="2 0 0 2" />
+            <Setter Property="Width"                        Value="58" />
+            <Setter Property="Height"                       Value="10" />
+            <Setter Property="Background"                   Value="IndianRed" />
+            <Setter Property="VerticalAlignment"            Value="Bottom"/>
+            <Setter Property="HorizontalContentAlignment"   Value="Center" />
+            <Setter Property="Foreground"                   Value="White" />
+        </Style>
+
+        <Style TargetType="Label" x:Key="tagAnzeigen" BasedOn="{StaticResource balken}">
+            
+            <Setter Property="Height"                       Value="80" />
+            <Setter Property="Background"                   Value="Gray" />
+            <Setter Property="VerticalAlignment"            Value="Center"/>
+            <Setter Property="HorizontalContentAlignment"   Value="Center" />
+            <Setter Property="VerticalContentAlignment"     Value="Top" />
+        </Style>
     </Window.Resources>
     
     
@@ -38,7 +58,7 @@
         
         
         <TabControl Background="DarkGray">
-            <TabItem Header="   Strom   ">
+            <TabItem Header="     Stromverbrauch     ">
              
                  <StackPanel Margin="10" Background="Gray" Orientation="Horizontal">
                     
@@ -398,17 +418,86 @@
                 
             </TabItem>
 
-            <TabItem Header="    Gas    ">
+            <TabItem Header="        Grafik        ">
+               <StackPanel Orientation="Vertical">
+                 <StackPanel Margin="10" Height="850" Background="Gray" Orientation="Horizontal">
+                    <Label x:Name="balken1" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken2" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken3" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken4" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken5" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken6" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken7" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken8" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken9" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken10" Style="{StaticResource balken}"/>
+                    
+                    <Label x:Name="balken11" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken12" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken13" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken14" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken15" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken16" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken17" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken18" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken19" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken20" Style="{StaticResource balken}"/>
+
+                    <Label x:Name="balken21" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken22" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken23" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken24" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken25" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken26" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken27" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken28" Style="{StaticResource balken}"/>
+                    <Label x:Name="balken29" Style="{StaticResource balken}" />
+                    <Label x:Name="balken30" Style="{StaticResource balken}"/>
+                    
+                    <Label x:Name="balken31" Style="{StaticResource balken}"/>
+                 </StackPanel>
+                    <StackPanel Height="80" Margin="10 0 0 0"  Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                        <Label Style="{StaticResource tagAnzeigen}" Content=" 1 "/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content=" 2 "/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content=" 3 "/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content=" 4 "/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content=" 5 "/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content=" 6 "/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content=" 7 "/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content=" 8 "/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content=" 9 "/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content=" 10 "/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content=" 11 "/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content="12"/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content="13"/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content="14"/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content="15"/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content="16"/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content="17"/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content="18"/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content="19"/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content="20"/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content="21"/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content="22"/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content="23"/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content="24"/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content="25"/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content="26"/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content="27"/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content="28"/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content="29" x:Name="tag29"/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content="30" x:Name="tag30"/>
+                        <Label Style="{StaticResource tagAnzeigen}" Content="31" x:Name="tag31"/>
+                        
+                    </StackPanel>
+               </StackPanel>
+            </TabItem>
+
+            <!--<TabItem Header="   Wasser  ">
                 <StackPanel Margin="10" Background="Gray">
 
                 </StackPanel>
-            </TabItem>
-
-            <TabItem Header="   Wasser  ">
-                <StackPanel Margin="10" Background="Gray">
-
-                </StackPanel>
-            </TabItem>
+            </TabItem>-->
 
 
 

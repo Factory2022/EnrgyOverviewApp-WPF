@@ -20,14 +20,17 @@ namespace EnrgyOverviewApp_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public Label[,] datenStrom = new Label[5,33];
-        public static string[,] datenS = new string[5, 33];      // Fünf Einträge, 31 Tage im Monat + Eintrag letzer Abschluss + gesamt Monat
+        public Label[,] datenStrom = new Label[5,33];               // Array für die Anzeige der LABELS in dem STRO-TAB
+        public Label[] balken_lbl = new Label[33];                  // Array für die Balkenanzeige
+        public static string[,] datenS = new string[5, 33];         // Fünf Einträge, 31 Tage im Monat + Eintrag letzer Abschluss + gesamt Monat
         public static int       heute;
-        public static string    systemzeit, datum, tag, monat, jahr; // Systemzeit in einzelne Teile zerlegen...
+        public static string    systemzeit, datum, tag, monat, jahr;// Systemzeit in einzelne Teile zerlegen...
         public static string    fileName;
         public static string[] monate = new string[500];
         public static bool ersterStart = true;                      // Wird das Programm zum ersten mal gestartet? ...
         public static int merkerAktuellerWert, durchschnitt,wert1,wert2,ergebnis;
+        public static byte r, g, b;                                  // Rot, Grün, Blau
+        public static int balkenHoehe , bh2;
 
         public MainWindow()
         {
@@ -53,24 +56,28 @@ namespace EnrgyOverviewApp_WPF
 
             heute = Convert.ToInt32(tag);
 
-            
+
             fileName = monat + "-" + jahr + ".txt";     //Name der Monatsberichtsdatei
             Files.LoadMonthList();                      // Liste der vorhandenen Monate laden
-            
+
             Files.LoadLetzterEintrag();  // TEST
 
             Files.LoadMonth();
             DatenEintragen();
 
 
-            AktuellesDatum.Content = Convert.ToString(heute) + "." + monat + "."+ jahr;
+            AktuellesDatum.Content = Convert.ToString(heute) + "." + monat + "." + jahr;
             fakeTagHeute.Content = heute;
 
             TextAktivieren();
             Autoscroll();
             FarbeSetzten();
-                       
-        }
+            BalkenZuweisen();
+            BalkenBerechnen();
+
+
+
+           }
 
         // wenn in er Textbox Enter gedrückt wurde, mache...
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
@@ -84,6 +91,7 @@ namespace EnrgyOverviewApp_WPF
                 {
                     NeuenWertEintragen();
                     DatenEintragen(); // Test..
+                    BalkenBerechnen();
                     Files.SaveMonth();
                 } else MessageBox.Show("Leere Eingabe ist nicht möglich!");
             }
@@ -291,6 +299,72 @@ namespace EnrgyOverviewApp_WPF
             txt_Box_Zaehlerstand.Focus();
             txt_Box_Zaehlerstand.Select(txt_Box_Zaehlerstand.Text.Length, 0);
             
+        }
+
+        public void BalkenBerechnen()
+        {
+            int offset = 60;
+            for (int i = 1; i < 32; i++)
+            {
+                if (datenS[3, i] != "")
+                {
+                    balkenHoehe = Convert.ToInt32(datenS[3, i]);
+                    bh2 = balkenHoehe * 8;   // 13 ist ok ... ich brauche mehr Energie :(
+                     //MessageBox.Show(Convert.ToString(bh2));
+                    r = 0;
+                    g = 255;
+                    if (bh2 > offset)
+                    {
+                        if (bh2 > 255+offset) bh2 = 255+offset;
+                        r = (byte)(bh2 - offset );
+                        g = (byte)(255 - r);
+                    }
+                    
+                    balken_lbl[i].Height = Convert.ToInt32(datenS[3, i]) * 20;
+                    balken_lbl[i].Content = datenS[3, i];
+                    balken_lbl[i].Background = new SolidColorBrush(Color.FromArgb(255, r, g, b));
+                }   else balken_lbl[i].Background = new SolidColorBrush(Color.FromArgb(255, 0,100, 0));
+            }
+            
+        }
+        public void BalkenZuweisen()
+        {
+            balken_lbl[1] = balken1;
+            balken_lbl[2] = balken2;
+            balken_lbl[3] = balken3;
+            balken_lbl[4] = balken4;    
+            balken_lbl[5] = balken5;    
+            balken_lbl[6] = balken6;
+            balken_lbl[7] = balken7;
+            balken_lbl[8] = balken8;
+            balken_lbl[9] = balken9;
+            balken_lbl[10] = balken10;
+            balken_lbl[11] = balken11;
+            balken_lbl[12] = balken12;
+            balken_lbl[13] = balken13;
+            balken_lbl[14] = balken14;
+            balken_lbl[15] = balken15;
+            balken_lbl[16] = balken16;
+            balken_lbl[17] = balken17;
+            balken_lbl[18] = balken18;
+            balken_lbl[19] = balken19;
+            balken_lbl[20] = balken20;
+            balken_lbl[21] = balken21;
+            balken_lbl[22] = balken22;
+            balken_lbl[23] = balken23;
+            balken_lbl[24] = balken24;
+            balken_lbl[25] = balken25;
+            balken_lbl[26] = balken26;
+            balken_lbl[27] = balken27;
+            balken_lbl[28] = balken28;
+            balken_lbl[29] = balken29;
+            balken_lbl[30] = balken30;
+            balken_lbl[31] = balken31;
+
+
+
+
+
         }
         public void DatenStromInArray()
         {
