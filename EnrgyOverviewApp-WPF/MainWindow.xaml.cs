@@ -20,25 +20,23 @@ namespace EnrgyOverviewApp_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public Label[,] datenStrom = new Label[5,33];               // Array für die Anzeige der LABELS in dem STRO-TAB
-        public Label[] balken_lbl = new Label[33];                  // Array für die Balkenanzeige
+        public Label[,] datenStrom  = new Label[5,33];              // Array für die Anzeige der LABELS in dem STRO-TAB
+        public Label[] balken_lbl   = new Label[33];                // Array für die Balkenanzeige
         public static string[,] datenS = new string[5, 33];         // Fünf Einträge, 31 Tage im Monat + Eintrag letzer Abschluss + gesamt Monat
         public static int       heute;
         public static string    systemzeit, datum, tag, monat, jahr;// Systemzeit in einzelne Teile zerlegen...
         public static string    fileName;
-        public static string[] monate = new string[500];
+        public static string[] monate = new string[500];            // 500 Monate sind eirwas übertrieben ;)
         public static bool ersterStart = true;                      // Wird das Programm zum ersten mal gestartet? ...
         public static int merkerAktuellerWert, durchschnitt,wert1,wert2,ergebnis;
-        public static byte r, g, b;                                  // Rot, Grün, Blau
         public static int balkenHoehe , bh2, kwMulti=8;
-        //TEST
-        // Create a vertical linear gradient.
-        public static LinearGradientBrush myVG = new LinearGradientBrush();
+        
 
         public MainWindow()
         {
             InitializeComponent();
             DatenStromInArray();
+
             // Systemzeit in String umwandeln
             systemzeit = System.DateTime.Now.ToString();
             for (int i = 0; i <= 10; i++)
@@ -62,89 +60,69 @@ namespace EnrgyOverviewApp_WPF
 
             fileName = monat + "-" + jahr + ".txt";     //Name der Monatsberichtsdatei
             Files.LoadMonthList();                      // Liste der vorhandenen Monate laden
-
-            Files.LoadLetzterEintrag();  // TEST
-
+            Files.LoadLetzterEintrag();                 // Letzen Eintrag laden - wenn neuer Monat beginnt, bekomme ich so die Abschlsswerte vom Vormonat
             Files.LoadMonth();
             DatenEintragen();
 
 
             AktuellesDatum.Content = Convert.ToString(heute) + "." + monat + "." + jahr;
-            fakeTagHeute.Content = heute;
-
-           /*
-            myVG.StartPoint = new Point(0, 0.5);
-            myVG.EndPoint   = new Point(0, 0);
-            myVG.GradientStops.Add(new GradientStop(Colors.Green, 0.0));
-            myVG.GradientStops.Add(new GradientStop(Colors.Red  , 1));
-           */
+            fakeTagHeute.Content = heute;   // dient zum debuggen
+                       
             TextAktivieren();
             Autoscroll();
             FarbeSetzten();
             BalkenZuweisen();
             BalkenBerechnen();
-            lbl_KW.Content = Convert.ToString(26 - kwMulti);
+            lbl_KW.Content = Convert.ToString(kwMulti);  // 26-kwMulti
 
 
 
         }
 
-        // wenn in er Textbox Enter gedrückt wurde, mache...
+
+        //********************************************************************************
+        // wenn in er Textbox Tasten gedrückt wurden...
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            
-            string testString = txt_Box_Zaehlerstand.Text;
             // ist die Taste  = RETURN?
             if (e.Key == Key.Return)
             {
-                if (testString != "")
+                if (txt_Box_Zaehlerstand.Text != "")
                 {
                     NeuenWertEintragen();
-                    DatenEintragen(); // Test..
+                    DatenEintragen(); 
                     BalkenBerechnen();
                     Files.SaveMonth();
                 } else MessageBox.Show("Leere Eingabe ist nicht möglich!");
             }
-
-
-
-            for (int i = 0; i < testString.Length; i++)
-            {
-                // if (testString[i] == '0') MessageBox.Show("Null gedrückt!");
-
-                int test1 = (int)testString[i];
-                if (test1 < 48 || test1 > 57)
-                {
-                    // MessageBox.Show("Falsche Eingabe! Nur Zahlen sind erlaubt!");
-                    testString = testString.Substring(0, testString.Length - 1);
-                    txt_Box_Zaehlerstand.Text = testString;
-                    TextAktivieren();
-                }
-            }
-            
+            EingabePruefen();
         }
+
         //TextBox_KeyUp
         private void TextBox_KeyUp(object sender, KeyEventArgs e)
         {
+            if (e.Key == Key.Left) TextAktivieren();     // so bleibt der Cursor am Ende der Eingabe...
+            EingabePruefen();
+            e.Handled = true;
+        } 
+
+        public void EingabePruefen()
+        {
             string testString = txt_Box_Zaehlerstand.Text;
-
-            if (e.Key == Key.Left) TextAktivieren();
-
             for (int i = 0; i < testString.Length; i++)
             {
                 int test1 = (int)testString[i];
-                if (test1 < 48 || test1 > 57)
+                if (test1 < 48 || test1 > 57)                                       // Nur Zahlen sind erlaubt!
                 {
-                    //MessageBox.Show("Falsche Eingabe! Nur Zahlen sind erlaubt!");
-                    testString = testString.Substring(0, testString.Length - 1);
+                    testString = testString.Substring(0, testString.Length - 1);    // Bei Falscheingabe wird das Zeichen dirkt wieder gelöscht...
                     txt_Box_Zaehlerstand.Text = testString;
                     TextAktivieren();
                 }
             }
-            e.Handled = true;
-
         }
-        public void FarbeSetzten()
+        // ************************************************************************
+
+        public void FarbeSetzten()    // Die aktuelle Zeile in DarkSlateGray färben - Zeile davor und danach wieder in Grau einfärben
         {
             if (heute > 1)
             {
@@ -157,7 +135,7 @@ namespace EnrgyOverviewApp_WPF
             for (int i = 0; i < 5; i++) datenStrom[i, heute].Background = new SolidColorBrush(Colors.DarkSlateGray);
             
         }
-        public void Autoscroll()
+        public void Autoscroll()    // Den aktellen Tag in die Mitte scollen
         {
             scroll.ScrollToVerticalOffset(heute * 50 - 290);
         }
@@ -170,12 +148,13 @@ namespace EnrgyOverviewApp_WPF
 
             //datenS[0,heute] = datum;  deaktiviert für Test!
             datenS[1,heute] = txt_Box_Zaehlerstand.Text;
-            // merkerAktuellerWert = Convert.ToInt32(txt_Box_Zaehlerstand.Text);                   // Aktueller Wert für die Berechnung von den Durchschnittswerten
+            // merkerAktuellerWert = Convert.ToInt32(txt_Box_Zaehlerstand.Text);                // Aktueller Wert für die Berechnung von den Durchschnittswerten
             if (ersterStart == false) WerteBerechnen();
 
             //Als letzten Eintrag in das Array füllen
             datenS[0,32] = Convert.ToString(heute) + "." + monat + "." + jahr;
             datenS[1,32] = txt_Box_Zaehlerstand.Text;
+            // die weiteren Felder werden in der Methode 'WerteBerechnen' eingetragen
             Files.SaveLetzterEintrag();
             if (ersterStart == true)
             {
@@ -191,12 +170,13 @@ namespace EnrgyOverviewApp_WPF
             TextAktivieren();
         }
 
+
         public void WerteBerechnen()
         {
             if (datenS[1, heute-1] != "")                      // Ausführen, wenn am Vortag ein Wert eingetragen ist
             {
-                wert1 = Convert.ToInt32(datenS[1, heute]);    // Aktueller Eintrag
-                wert2 = Convert.ToInt32(datenS[1, heute-1]);  // Eintrag vom Vortag
+                wert1 = Convert.ToInt32(datenS[1, heute]);     // Aktueller Eintrag
+                wert2 = Convert.ToInt32(datenS[1, heute-1]);   // Eintrag vom Vortag
                 ergebnis = wert1 - wert2;
                 datenS[2, heute] = Convert.ToString(ergebnis); // Differenz zum Vortag eintragen
             }
@@ -217,6 +197,7 @@ namespace EnrgyOverviewApp_WPF
                 datenS[4, i] = Convert.ToString(ergebnis);
             }
 
+
             // Differenz zum letzten Eintrag
             wert1 = 0;
             wert2 = 0;
@@ -225,28 +206,22 @@ namespace EnrgyOverviewApp_WPF
 
             if (datenS[1, heute - 1] == "")
             {
-                //for (int i = 1; i < heute; i++)
-                for(int i = heute-1; i > 0; i--)
+                
+                for(int i = heute-1; i > 0; i--)     // liegt der letzte Eintrag schon ein paar Tage zurück?
                 {
-                    // MessageBox.Show("I ist : "+Convert.ToString(i) + " Heute :"+ Convert.ToString(heute));
                     if (datenS[1, i] == "")
                     {
                         zaehler = i;
                         merker ++;
-                        //merker = heute - zaehler + 1;
-                        // break;
-                        // merker++;
-                        //MessageBox.Show("Gefasst");
                     }
                     else break;
-
                 }
-                // MessageBox.Show("Zähler ist : "+Convert.ToString(zaehler) + " Merker ist : " + Convert.ToString(merker) );
-                wert1 = Convert.ToInt32(datenS[1, heute]);            // Aktueller Eintrag
-                wert2 = Convert.ToInt32(datenS[1, heute-merker]);           // letzter Eintrag
+                
+                wert1 = Convert.ToInt32(datenS[1, heute]);           // Aktueller Eintrag
+                wert2 = Convert.ToInt32(datenS[1, heute-merker]);    // letzter Eintrag
 
                 ergebnis = (wert1 - wert2) / (merker);
-                // MessageBox.Show(Convert.ToString(wert1) +" - " + Convert.ToString(wert2) +" = " + Convert.ToString(ergebnis));
+                
                 for (int i = zaehler; i <= heute; i++)
                 {
                     datenS[3, i] = Convert.ToString(ergebnis);
@@ -264,7 +239,7 @@ namespace EnrgyOverviewApp_WPF
         }
 
       
-
+        // ACHTUNG - AB HIER FOLGT EIN TEST!!! 
         private void TagMinus(object sender, RoutedEventArgs e)
         {
             heute--;
@@ -290,83 +265,94 @@ namespace EnrgyOverviewApp_WPF
             Autoscroll();
             FarbeSetzten();
         }
+        // TEST BEENDET !
 
-        public void DatenEintragen()
+
+        public void DatenEintragen()            // Den Labeln in der GUI einen neuen Content zuweisen
         {
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 1; j < 32; j++)
                 {
                     datenStrom[i, j].Content = datenS[i, j];
-
                 }
             }
         }
 
-        public void TextAktivieren()
+        public void TextAktivieren()            //TextBox direkt aktiviern und den Text selektieren
         {
-            //TextBox direkt aktiviern und den Text selektieren
             txt_Box_Zaehlerstand.Focus();
             txt_Box_Zaehlerstand.Select(txt_Box_Zaehlerstand.Text.Length, 0);
-            
         }
 
         public void BalkenBerechnen()
         {
-            int offset = 60;
             for (int i = 1; i < 32; i++)
             {
                 if (datenS[3, i] != "")
                 {
-                    balkenHoehe = Convert.ToInt32(datenS[3, i]);
-                    bh2 = balkenHoehe * kwMulti;   // 13 ist ok ... ich brauche mehr Energie :(
-                                                   //MessageBox.Show(Convert.ToString(bh2));
-                    r = 0;
-                    g = 255;
-                    if (bh2 > offset)
-                    {
-                        if (bh2 > 255 + offset) bh2 = 255 + offset;
-                        r = (byte)(bh2 - offset);
-                        g = (byte)(255 - r);
-                    }
-
                     balken_lbl[i].Height = Convert.ToInt32(datenS[3, i]) * 20;
                     balken_lbl[i].Content = datenS[3, i];
-                    balken_lbl[i].Background = new SolidColorBrush(Color.FromArgb(255, r, g, b));
-                } else balken_lbl[i].Background = new SolidColorBrush(Color.FromArgb(255, 0, 100, 0));
-
-                
+                }                
             }
-            // TEST Farbverlauf kwMulti 1-20    1/kwmulti  kwmulti=20 ... wert 0,05     
-            Random rnd = new Random();
+            
+            //  Farbverlauf kwMulti 1-20     
             for (int i = 1; i < 32; i++)
             {
                 if (datenS[3, i] != "")
                 {
-                    double kwOkInListe = (100/(Convert.ToDouble(datenS[3, i])) / 100  * (26 - kwMulti));  // Balken sollte nun bei 0.1 liegen
-                    // if (i ==13) MessageBox.Show(Convert.ToString(kwOkInListe)); //+ "  kwMulti = " + Convert.ToString(26 - kwMulti));
+                    double kwOkInListe = (100/(Convert.ToDouble(datenS[3, i])) / 100  * (kwMulti)); 
+                    // if (i ==13) MessageBox.Show(Convert.ToString(kwOkInListe));   // Test - Anzeigen vom Wert
                     if (kwOkInListe > 1) kwOkInListe = 1;
-                    if (kwOkInListe < 0) kwOkInListe = 0;    
+                    if (kwOkInListe < 0) kwOkInListe = 0;       // Der Wert liegt nun zischen 0 und 1 - und bei allen Nalken auf der gleichen höhe!
 
-                    LinearGradientBrush myVG = new LinearGradientBrush
+                    // Farbverlauf zuweisen
+                    LinearGradientBrush vertikalG = new LinearGradientBrush
                     {
-                        StartPoint = new Point(0,0),  // y Pos
-                        EndPoint   = new Point(0, 1- kwOkInListe)  // Y Pos
+                        StartPoint = new Point(0,0),  
+                        EndPoint   = new Point(0, 1- kwOkInListe)
                     };
-                    myVG.GradientStops.Add(new GradientStop(Colors.Red  ,1-kwOkInListe));  // 0   Oben bei 0, oder berechnet
-                    
-                    myVG.GradientStops.Add(new GradientStop(Colors.Green,1));  // factor bH2   Unten ist = 1
-                   
-                    balken_lbl[i].Background = myVG;
-                }
-                
-            
+                    vertikalG.GradientStops.Add(new GradientStop(Colors.Red  ,1-kwOkInListe));  
+                    vertikalG.GradientStops.Add(new GradientStop(Colors.Green,1));                    
+                    balken_lbl[i].Background = vertikalG;
+                } else balken_lbl[i].Background = new SolidColorBrush(Colors.DarkGray);
             }
-
-           
-
-
         }
+
+
+        //    Monate vor und zurück per Cklick...    Code kommt noch!
+        private void Monat_Minus(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Monat zurück!");
+        }
+
+        private void Monat_Plus(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Monat vor!");
+        }
+
+        // KW-Verbrauch am Tag ok-Wert
+        private void KW_Minus(object sender, RoutedEventArgs e)
+        {
+            kwMulti--;
+            if (kwMulti < 1) kwMulti = 1;
+            lbl_KW.Content = Convert.ToString(kwMulti);
+            Files.SaveLetzterEintrag();
+            BalkenBerechnen();
+        }
+
+        private void KW_Plus(object sender, RoutedEventArgs e)
+        {
+            kwMulti++;
+            if (kwMulti > 25) kwMulti = 25;
+            lbl_KW.Content = Convert.ToString(kwMulti);
+            Files.SaveLetzterEintrag();
+            BalkenBerechnen();
+        }
+
+
+        //  Ab hier werden die einzellnen Labes in ein Label-Array geschrieben und können so einfacher behandelt werden...
+        //****************************************************************************************************************
         public void BalkenZuweisen()
         {
             balken_lbl[1] = balken1;
@@ -400,11 +386,6 @@ namespace EnrgyOverviewApp_WPF
             balken_lbl[29] = balken29;
             balken_lbl[30] = balken30;
             balken_lbl[31] = balken31;
-
-
-
-
-
         }
         public void DatenStromInArray()
         {
@@ -595,33 +576,6 @@ namespace EnrgyOverviewApp_WPF
 
         }
 
-        private void Monat_Minus(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Monat zurück!");
-        }
-
-        private void Monat_Plus(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Monat vor!");
-        }
-
-        private void KW_Plus(object sender, RoutedEventArgs e)
-        {
-            kwMulti--;
-            if (kwMulti < 1) kwMulti = 1;
-            lbl_KW.Content = Convert.ToString(26-kwMulti);
-            Files.SaveLetzterEintrag();
-            BalkenBerechnen();
-        }
-
-        private void KW_Minus(object sender, RoutedEventArgs e)
-        {
-            kwMulti++;
-            if (kwMulti >25) kwMulti = 25;
-            lbl_KW.Content = Convert.ToString(26-kwMulti);
-            Files.SaveLetzterEintrag();
-            BalkenBerechnen();
-        }
     }
 
 
