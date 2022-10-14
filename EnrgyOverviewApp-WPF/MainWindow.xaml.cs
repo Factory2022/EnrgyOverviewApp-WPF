@@ -31,6 +31,9 @@ namespace EnrgyOverviewApp_WPF
         public static int merkerAktuellerWert, durchschnitt,wert1,wert2,ergebnis;
         public static byte r, g, b;                                  // Rot, Grün, Blau
         public static int balkenHoehe , bh2, kwMulti=8;
+        //TEST
+        // Create a vertical linear gradient.
+        public static LinearGradientBrush myVG = new LinearGradientBrush();
 
         public MainWindow()
         {
@@ -69,12 +72,18 @@ namespace EnrgyOverviewApp_WPF
             AktuellesDatum.Content = Convert.ToString(heute) + "." + monat + "." + jahr;
             fakeTagHeute.Content = heute;
 
+           /*
+            myVG.StartPoint = new Point(0, 0.5);
+            myVG.EndPoint   = new Point(0, 0);
+            myVG.GradientStops.Add(new GradientStop(Colors.Green, 0.0));
+            myVG.GradientStops.Add(new GradientStop(Colors.Red  , 1));
+           */
             TextAktivieren();
             Autoscroll();
             FarbeSetzten();
             BalkenZuweisen();
             BalkenBerechnen();
-            lbl_KW.Content = Convert.ToString(25 - kwMulti);
+            lbl_KW.Content = Convert.ToString(26 - kwMulti);
 
 
 
@@ -311,22 +320,52 @@ namespace EnrgyOverviewApp_WPF
                 {
                     balkenHoehe = Convert.ToInt32(datenS[3, i]);
                     bh2 = balkenHoehe * kwMulti;   // 13 ist ok ... ich brauche mehr Energie :(
-                     //MessageBox.Show(Convert.ToString(bh2));
+                                                   //MessageBox.Show(Convert.ToString(bh2));
                     r = 0;
                     g = 255;
                     if (bh2 > offset)
                     {
-                        if (bh2 > 255+offset) bh2 = 255+offset;
-                        r = (byte)(bh2 - offset );
+                        if (bh2 > 255 + offset) bh2 = 255 + offset;
+                        r = (byte)(bh2 - offset);
                         g = (byte)(255 - r);
                     }
-                    
+
                     balken_lbl[i].Height = Convert.ToInt32(datenS[3, i]) * 20;
                     balken_lbl[i].Content = datenS[3, i];
                     balken_lbl[i].Background = new SolidColorBrush(Color.FromArgb(255, r, g, b));
-                }   else balken_lbl[i].Background = new SolidColorBrush(Color.FromArgb(255, 0,100, 0));
+                } else balken_lbl[i].Background = new SolidColorBrush(Color.FromArgb(255, 0, 100, 0));
+
+                
             }
+            // TEST Farbverlauf kwMulti 1-20    1/kwmulti  kwmulti=20 ... wert 0,05     
+            Random rnd = new Random();
+            for (int i = 1; i < 32; i++)
+            {
+                if (datenS[3, i] != "")
+                {
+                    double kwOkInListe = (100/(Convert.ToDouble(datenS[3, i])) / 100  * (26 - kwMulti));  // Balken sollte nun bei 0.1 liegen
+                    // if (i ==13) MessageBox.Show(Convert.ToString(kwOkInListe)); //+ "  kwMulti = " + Convert.ToString(26 - kwMulti));
+                    if (kwOkInListe > 1) kwOkInListe = 1;
+                    if (kwOkInListe < 0) kwOkInListe = 0;    
+
+                    LinearGradientBrush myVG = new LinearGradientBrush
+                    {
+                        StartPoint = new Point(0,0),  // y Pos
+                        EndPoint   = new Point(0, 1- kwOkInListe)  // Y Pos
+                    };
+                    myVG.GradientStops.Add(new GradientStop(Colors.Red  ,1-kwOkInListe));  // 0   Oben bei 0, oder berechnet
+                    
+                    myVG.GradientStops.Add(new GradientStop(Colors.Green,1));  // factor bH2   Unten ist = 1
+                   
+                    balken_lbl[i].Background = myVG;
+                }
+                
             
+            }
+
+           
+
+
         }
         public void BalkenZuweisen()
         {
@@ -570,7 +609,7 @@ namespace EnrgyOverviewApp_WPF
         {
             kwMulti--;
             if (kwMulti < 1) kwMulti = 1;
-            lbl_KW.Content = Convert.ToString(25-kwMulti);
+            lbl_KW.Content = Convert.ToString(26-kwMulti);
             Files.SaveLetzterEintrag();
             BalkenBerechnen();
         }
@@ -578,8 +617,8 @@ namespace EnrgyOverviewApp_WPF
         private void KW_Minus(object sender, RoutedEventArgs e)
         {
             kwMulti++;
-            if (kwMulti >20) kwMulti = 20;
-            lbl_KW.Content = Convert.ToString(25-kwMulti);
+            if (kwMulti >25) kwMulti = 25;
+            lbl_KW.Content = Convert.ToString(26-kwMulti);
             Files.SaveLetzterEintrag();
             BalkenBerechnen();
         }
