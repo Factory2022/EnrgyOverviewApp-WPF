@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
+
 namespace EnrgyOverviewApp_WPF
 {
     /// <summary>
@@ -20,7 +22,7 @@ namespace EnrgyOverviewApp_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public Label[,] datenStrom  = new Label[5,33];              // Array für die Anzeige der LABELS in dem STRO-TAB
+        public Label[,] datenStrom  = new Label[5,33];              // Array für die Anzeige der LABELS in dem STROM-TAB
         public Label[] balken_lbl   = new Label[33];                // Array für die Balkenanzeige
         public static string[,] datenS = new string[5, 33];         // Fünf Einträge, 31 Tage im Monat + Eintrag letzer Abschluss + gesamt Monat
         public static int       heute;
@@ -355,6 +357,15 @@ namespace EnrgyOverviewApp_WPF
         //****************************************************************************************************************
         public void BalkenZuweisen()
         {
+            for (int i = 1; i < 32; i++)
+            {
+                
+                //balken_lbl[i]=(Label)FindName(balken1);
+                balken_lbl[i] = (Label)FindName($"balken{i}");
+                //balken_lbl[3] = ;
+            }
+            
+            /*
             balken_lbl[1] = balken1;
             balken_lbl[2] = balken2;
             balken_lbl[3] = balken3;
@@ -386,6 +397,7 @@ namespace EnrgyOverviewApp_WPF
             balken_lbl[29] = balken29;
             balken_lbl[30] = balken30;
             balken_lbl[31] = balken31;
+            */
         }
         public void DatenStromInArray()
         {

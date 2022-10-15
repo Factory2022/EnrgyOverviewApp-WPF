@@ -27,7 +27,7 @@
 
         <Style TargetType="Label" x:Key="textRechts" BasedOn="{StaticResource breit}">
             <Setter Property="Width"                        Value="304" />
-            <Setter Property="Padding"                       Value="10 5 100 5" />
+            <Setter Property="Padding"                      Value="10 5 100 5" />
             <Setter Property="HorizontalContentAlignment"   Value="Right" />
         </Style>
 
@@ -36,14 +36,13 @@
             <Setter Property="Margin"                       Value="2 0 0 2" />
             <Setter Property="Width"                        Value="58" />
             <Setter Property="Height"                       Value="10" />
-            <Setter Property="Background"                   Value="IndianRed" />
+            <!--<Setter Property="Background"                   Value="IndianRed" />-->
             <Setter Property="VerticalAlignment"            Value="Bottom"/>
             <Setter Property="HorizontalContentAlignment"   Value="Center" />
             <Setter Property="Foreground"                   Value="White" />
         </Style>
 
         <Style TargetType="Label" x:Key="tagAnzeigen" BasedOn="{StaticResource balken}">
-            
             <Setter Property="Height"                       Value="80" />
             <Setter Property="Background"                   Value="Gray" />
             <Setter Property="VerticalAlignment"            Value="Center"/>
@@ -108,6 +107,7 @@
                             Content="08-2022"
                             >                
                         </Label>
+                        
                         <Label
                             Height="50"
                             HorizontalContentAlignment="Center"
