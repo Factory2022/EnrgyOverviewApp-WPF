@@ -353,7 +353,7 @@ namespace EnrgyOverviewApp_WPF
         }
 
 
-        //  Ab hier werden die einzellnen Labes in ein Label-Array geschrieben und können so einfacher behandelt werden...
+        //  Ab hier werden die einzellnen Label in ein Label-Array geschrieben und können so einfacher behandelt werden...
         //****************************************************************************************************************
         public void BalkenZuweisen()
         {
@@ -363,7 +363,6 @@ namespace EnrgyOverviewApp_WPF
                 zahl = Convert.ToString(i);
                 balken_lbl[i] = (Label)FindName($"balken{zahl}");
             }
-            
         }
         public void DatenStromInArray()
         {
@@ -378,13 +377,8 @@ namespace EnrgyOverviewApp_WPF
                     zahl1 = Convert.ToString(i);
                     zahl2 = Convert.ToString(j+1);
                     datenStrom[j, i] = (Label)FindName($"r{zahl1}c{zahl2}");
-                   
                 }
             }
-           
         }
-
     }
-
-
 }

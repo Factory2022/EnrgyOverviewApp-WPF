@@ -184,9 +184,9 @@
                             <StackPanel Margin="10" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Label Style="{StaticResource breit}" Content="Datum"/>
                                 <Label Style="{StaticResource breit}" Content="Zählerstand" />
-                                <Label Style="{StaticResource breit}" Content="Deif. z. letzten Eintrag" />
+                                <Label Style="{StaticResource breit}" Content="Diff. zum letzten Eintrag" />
                                 <Label Style="{StaticResource breit}" Content="Tagesdurchschnitt" />
-                                <Label Style="{StaticResource breit}" Content="Durchschn. Monat" />
+                                <Label Style="{StaticResource breit}" Content="Monatsdurchschnitt" />
                             </StackPanel>
 
 

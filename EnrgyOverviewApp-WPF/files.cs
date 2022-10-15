@@ -53,9 +53,7 @@ namespace EnrgyOverviewApp_WPF
                     for  (int i = 0; i < 5; i++)
                     {
                         MainWindow.datenS[i, j] = sr2.ReadLine();
-                        
                     }
-
                 }
                 
                 sr2.Close();
@@ -74,10 +72,8 @@ namespace EnrgyOverviewApp_WPF
                     {
                     sw3.WriteLine(MainWindow.datenS[i, j]);
                     }
-
-                }
-
-                sw3.Close();
+            }
+            sw3.Close();
         }
         public static void NewMonthFile()   // Neun Monat beginnen und eine Datei anlegen
         {
@@ -87,12 +83,9 @@ namespace EnrgyOverviewApp_WPF
             {
                 for  (int i = 0; i < 5; i++)
                 {
-                    // sw2.WriteLine(MainWindow.datenS[i, j]);
-                    sw2.WriteLine("");
+                     sw2.WriteLine("");
                 }
-
             }
-
             sw2.Close();
 
             LoadMonth();
@@ -116,11 +109,8 @@ namespace EnrgyOverviewApp_WPF
                     i++;
                   
                 }
-
-                    sr1.Close();
+                sr1.Close();
             }
-
-
         }
 
         public static void NewMonthList()
@@ -129,14 +119,12 @@ namespace EnrgyOverviewApp_WPF
 
             if (File.Exists(config) == false)
             {
-
                 StreamWriter sw1 = new StreamWriter(config);
                 sw1.WriteLine(MainWindow.fileName);
                 sw1.WriteLine("END");
                              
                 sw1.Close();
             }
-
         }
     }
 }
