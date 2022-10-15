@@ -357,235 +357,31 @@ namespace EnrgyOverviewApp_WPF
         //****************************************************************************************************************
         public void BalkenZuweisen()
         {
+            string zahl;
             for (int i = 1; i < 32; i++)
             {
-                
-                //balken_lbl[i]=(Label)FindName(balken1);
-                balken_lbl[i] = (Label)FindName($"balken{i}");
-                //balken_lbl[3] = ;
+                zahl = Convert.ToString(i);
+                balken_lbl[i] = (Label)FindName($"balken{zahl}");
             }
             
-            /*
-            balken_lbl[1] = balken1;
-            balken_lbl[2] = balken2;
-            balken_lbl[3] = balken3;
-            balken_lbl[4] = balken4;    
-            balken_lbl[5] = balken5;    
-            balken_lbl[6] = balken6;
-            balken_lbl[7] = balken7;
-            balken_lbl[8] = balken8;
-            balken_lbl[9] = balken9;
-            balken_lbl[10] = balken10;
-            balken_lbl[11] = balken11;
-            balken_lbl[12] = balken12;
-            balken_lbl[13] = balken13;
-            balken_lbl[14] = balken14;
-            balken_lbl[15] = balken15;
-            balken_lbl[16] = balken16;
-            balken_lbl[17] = balken17;
-            balken_lbl[18] = balken18;
-            balken_lbl[19] = balken19;
-            balken_lbl[20] = balken20;
-            balken_lbl[21] = balken21;
-            balken_lbl[22] = balken22;
-            balken_lbl[23] = balken23;
-            balken_lbl[24] = balken24;
-            balken_lbl[25] = balken25;
-            balken_lbl[26] = balken26;
-            balken_lbl[27] = balken27;
-            balken_lbl[28] = balken28;
-            balken_lbl[29] = balken29;
-            balken_lbl[30] = balken30;
-            balken_lbl[31] = balken31;
-            */
         }
         public void DatenStromInArray()
         {
-            // Datum vom Eintrag
-            datenStrom[0, 1] = r1c1;
-            datenStrom[0, 2] = r2c1;
-            datenStrom[0, 3] = r3c1;
-            datenStrom[0, 4] = r4c1;
-            datenStrom[0, 5] = r5c1;
-            datenStrom[0, 6] = r6c1;
-            datenStrom[0, 7] = r7c1;
-            datenStrom[0, 8] = r8c1;
-            datenStrom[0, 9] = r9c1;
-            datenStrom[0, 10] = r10c1;
-
-            datenStrom[0, 11] = r11c1;
-            datenStrom[0, 12] = r12c1;
-            datenStrom[0, 13] = r13c1;
-            datenStrom[0, 14] = r14c1;
-            datenStrom[0, 15] = r15c1;
-            datenStrom[0, 16] = r16c1;
-            datenStrom[0, 17] = r17c1;
-            datenStrom[0, 18] = r18c1;
-            datenStrom[0, 19] = r19c1;
-            datenStrom[0, 20] = r20c1;
-
-            datenStrom[0, 21] = r21c1;
-            datenStrom[0, 22] = r22c1;
-            datenStrom[0, 23] = r23c1;
-            datenStrom[0, 24] = r24c1;
-            datenStrom[0, 25] = r25c1;
-            datenStrom[0, 26] = r26c1;
-            datenStrom[0, 27] = r27c1;
-            datenStrom[0, 28] = r28c1;
-            datenStrom[0, 29] = r29c1;
-            datenStrom[0, 30] = r30c1;
-
-            datenStrom[0, 31] = r31c1;
-
-            // Eintrag in KWH
-            datenStrom[1, 1] = r1c2;
-            datenStrom[1, 2] = r2c2;
-            datenStrom[1, 3] = r3c2;
-            datenStrom[1, 4] = r4c2;
-            datenStrom[1, 5] = r5c2;
-            datenStrom[1, 6] = r6c2;
-            datenStrom[1, 7] = r7c2;
-            datenStrom[1, 8] = r8c2;
-            datenStrom[1, 9] = r9c2;
-            datenStrom[1, 10] = r10c2;
-
-            datenStrom[1, 11] = r11c2;
-            datenStrom[1, 12] = r12c2;
-            datenStrom[1, 13] = r13c2;
-            datenStrom[1, 14] = r14c2;
-            datenStrom[1, 15] = r15c2;
-            datenStrom[1, 16] = r16c2;
-            datenStrom[1, 17] = r17c2;
-            datenStrom[1, 18] = r18c2;
-            datenStrom[1, 19] = r19c2;
-            datenStrom[1, 20] = r20c2;
-
-            datenStrom[1, 21] = r21c2;
-            datenStrom[1, 22] = r22c2;
-            datenStrom[1, 23] = r23c2;
-            datenStrom[1, 24] = r24c2;
-            datenStrom[1, 25] = r25c2;
-            datenStrom[1, 26] = r26c2;
-            datenStrom[1, 27] = r27c2;
-            datenStrom[1, 28] = r28c2;
-            datenStrom[1, 29] = r29c2;
-            datenStrom[1, 30] = r30c2;
-
-            datenStrom[1, 31] = r31c2;
-
-            // Differenz letzter Eintrag
-            datenStrom[2, 1] = r1c3;
-            datenStrom[2, 2] = r2c3;
-            datenStrom[2, 3] = r3c3;
-            datenStrom[2, 4] = r4c3;
-            datenStrom[2, 5] = r5c3;
-            datenStrom[2, 6] = r6c3;
-            datenStrom[2, 7] = r7c3;
-            datenStrom[2, 8] = r8c3;
-            datenStrom[2, 9] = r9c3;
-            datenStrom[2, 10] = r10c3;
-
-            datenStrom[2, 11] = r11c3;
-            datenStrom[2, 12] = r12c3;
-            datenStrom[2, 13] = r13c3;
-            datenStrom[2, 14] = r14c3;
-            datenStrom[2, 15] = r15c3;
-            datenStrom[2, 16] = r16c3;
-            datenStrom[2, 17] = r17c3;
-            datenStrom[2, 18] = r18c3;
-            datenStrom[2, 19] = r19c3;
-            datenStrom[2, 20] = r20c3;
-
-            datenStrom[2, 21] = r21c3;
-            datenStrom[2, 22] = r22c3;
-            datenStrom[2, 23] = r23c3;
-            datenStrom[2, 24] = r24c3;
-            datenStrom[2, 25] = r25c3;
-            datenStrom[2, 26] = r26c3;
-            datenStrom[2, 27] = r27c3;
-            datenStrom[2, 28] = r28c3;
-            datenStrom[2, 29] = r29c3;
-            datenStrom[2, 30] = r30c3;
-
-            datenStrom[2, 31] = r31c3;
-
-
-            // Durchschnitt zum letzten Eintrag
-            datenStrom[3, 1] = r1c4;
-            datenStrom[3, 2] = r2c4;
-            datenStrom[3, 3] = r3c4;
-            datenStrom[3, 4] = r4c4;
-            datenStrom[3, 5] = r5c4;
-            datenStrom[3, 6] = r6c4;
-            datenStrom[3, 7] = r7c4;
-            datenStrom[3, 8] = r8c4;
-            datenStrom[3, 9] = r9c4;
-            datenStrom[3, 10] = r10c4;
-
-            datenStrom[3, 11] = r11c4;
-            datenStrom[3, 12] = r12c4;
-            datenStrom[3, 13] = r13c4;
-            datenStrom[3, 14] = r14c4;
-            datenStrom[3, 15] = r15c4;
-            datenStrom[3, 16] = r16c4;
-            datenStrom[3, 17] = r17c4;
-            datenStrom[3, 18] = r18c4;
-            datenStrom[3, 19] = r19c4;
-            datenStrom[3, 20] = r20c4;
-
-            datenStrom[3, 21] = r21c4;
-            datenStrom[3, 22] = r22c4;
-            datenStrom[3, 23] = r23c4;
-            datenStrom[3, 24] = r24c4;
-            datenStrom[3, 25] = r25c4;
-            datenStrom[3, 26] = r26c4;
-            datenStrom[3, 27] = r27c4;
-            datenStrom[3, 28] = r28c4;
-            datenStrom[3, 29] = r29c4;
-            datenStrom[3, 30] = r30c4;
-
-            datenStrom[3, 31] = r31c4;
-
-
-            // Durchschnitt Monat
-            datenStrom[4, 1] = r1c5;
-            datenStrom[4, 2] = r2c5;
-            datenStrom[4, 3] = r3c5;
-            datenStrom[4, 4] = r4c5;
-            datenStrom[4, 5] = r5c5;
-            datenStrom[4, 6] = r6c5;
-            datenStrom[4, 7] = r7c5;
-            datenStrom[4, 8] = r8c5;
-            datenStrom[4, 9] = r9c5;
-            datenStrom[4, 10] = r10c5;
-
-            datenStrom[4, 11] = r11c5;
-            datenStrom[4, 12] = r12c5;
-            datenStrom[4, 13] = r13c5;
-            datenStrom[4, 14] = r14c5;
-            datenStrom[4, 15] = r15c5;
-            datenStrom[4, 16] = r16c5;
-            datenStrom[4, 17] = r17c5;
-            datenStrom[4, 18] = r18c5;
-            datenStrom[4, 19] = r19c5;
-            datenStrom[4, 20] = r20c5;
-
-            datenStrom[4, 21] = r21c5;
-            datenStrom[4, 22] = r22c5;
-            datenStrom[4, 23] = r23c5;
-            datenStrom[4, 24] = r24c5;
-            datenStrom[4, 25] = r25c5;
-            datenStrom[4, 26] = r26c5;
-            datenStrom[4, 27] = r27c5;
-            datenStrom[4, 28] = r28c5;
-            datenStrom[4, 29] = r29c5;
-            datenStrom[4, 30] = r30c5;
-
-            datenStrom[4, 31] = r31c5;
-
-
-            
-
+            string zahl1;
+            string zahl2;
+                       
+            // Label in Array eintragen
+            for (int j = 0; j < 5; j++)
+            {
+                for (int i = 1; i < 32; i++)
+                {
+                    zahl1 = Convert.ToString(i);
+                    zahl2 = Convert.ToString(j+1);
+                    datenStrom[j, i] = (Label)FindName($"r{zahl1}c{zahl2}");
+                   
+                }
+            }
+           
         }
 
     }
