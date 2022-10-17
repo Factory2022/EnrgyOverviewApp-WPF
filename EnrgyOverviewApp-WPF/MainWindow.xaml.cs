@@ -24,7 +24,7 @@ namespace EnrgyOverviewApp_WPF
     {
         public Label[,] datenStrom  = new Label[5,33];              // Array für die Anzeige der LABELS in dem STROM-TAB
         public Label[] balken_lbl   = new Label[33];                // Array für die Balkenanzeige
-        public static string[,] datenS = new string[5, 33];         // Fünf Einträge, 31 Tage im Monat + Eintrag letzer Abschluss + gesamt Monat
+        public static string[,] datenS = new string[5, 34];         // Fünf Einträge, 31 Tage im Monat + Eintrag letzer Abschluss + gesamt Monat
         public static int       heute;
         public static string    systemzeit, datum, tag, monat, jahr;// Systemzeit in einzelne Teile zerlegen...
         public static string    fileName;
@@ -32,6 +32,7 @@ namespace EnrgyOverviewApp_WPF
         public static bool ersterStart = true;                      // Wird das Programm zum ersten mal gestartet? ...
         public static int merkerAktuellerWert, durchschnitt,wert1,wert2,ergebnis;
         public static int balkenHoehe , bh2, kwMulti=8;
+        public static double centKW, kostenImMonat;                                // Kosten je KW datenS[0,33]  - Gesamtkosten im Monat [1,33]
         
 
         public MainWindow()
@@ -75,7 +76,13 @@ namespace EnrgyOverviewApp_WPF
             FarbeSetzten();
             BalkenZuweisen();
             BalkenBerechnen();
-            lbl_KW.Content = Convert.ToString(kwMulti);  // 26-kwMulti
+            lbl_KW.Content = Convert.ToString(kwMulti);  
+
+            if (datenS[0, 33] == "") datenS[0, 33] = "30,00";  // Wenn noch kein Wert eingetragen war, wird auf 30,00 Cent gesetzt..
+            centKW = Convert.ToDouble(datenS[0, 33]);
+            
+            KwKostenEintragen();
+            KostenBerechnen();
 
 
 
@@ -350,6 +357,70 @@ namespace EnrgyOverviewApp_WPF
             lbl_KW.Content = Convert.ToString(kwMulti);
             Files.SaveLetzterEintrag();
             BalkenBerechnen();
+        }
+
+        // Kosten pro KW per Clkick erhöhen oder senken
+        private void Kosten_Minus(object sender, RoutedEventArgs e)
+        {
+            centKW -= 1;
+            if (centKW < 0) centKW = 0;
+            KwKostenEintragen();
+        }
+
+        private void Kosten_Plus(object sender, RoutedEventArgs e)
+        {
+            centKW++;
+            KwKostenEintragen();
+        }
+
+        private void Kosten_Nachkomma_Minus(object sender, RoutedEventArgs e)
+        {
+            centKW -= 0.1;
+            if (centKW < 0) centKW = 0;
+            KwKostenEintragen();
+        }
+
+        private void Kosten_Nachkomma_Plus(object sender, RoutedEventArgs e)
+        {
+            centKW+=0.1;
+            KwKostenEintragen();
+        }
+
+        private void Kosten_Nachkomma2_Minus(object sender, RoutedEventArgs e)
+        {
+            centKW -= 0.01;
+            if (centKW < 0) centKW = 0;
+            KwKostenEintragen();
+        }
+
+        private void Kosten_Nachkomma2_Plus(object sender, RoutedEventArgs e)
+        {
+            centKW += 0.01;
+            KwKostenEintragen();
+        }
+
+        private void KwKostenEintragen()
+        {
+            string wert=Convert.ToString(centKW);
+            if (wert[wert.Length - 2] == ',') wert += "0";
+            lbl_Kosten_KW.Content = wert+ " CT/KW";
+            datenS[0, 33] = wert;
+            KostenBerechnen();
+            Files.SaveMonth();
+        }
+
+        public void KostenBerechnen()
+        {
+            kostenImMonat = 0;
+            for (int i = 0; i < 32; i++)
+            {
+               if(datenS[2, i] != "")  kostenImMonat += Convert.ToDouble(datenS[2,i]);
+            }
+            kostenImMonat = Math.Round(kostenImMonat*centKW/100, 2);
+            
+            datenS[1,33] = Convert.ToString (kostenImMonat);
+            KostenImMonat.Content = datenS[1,33] +" Euro";
+            // MessageBox.Show(Convert.ToString(kostenAbgerundet));
         }
 
 

@@ -21,6 +21,7 @@ namespace EnrgyOverviewApp_WPF
                sw1.WriteLine(MainWindow.datenS[i,32]);
             }
             sw1.WriteLine(Convert.ToString(MainWindow.kwMulti));
+            sw1.WriteLine(Convert.ToString(MainWindow.centKW));
             sw1.Close();
         }
         public static void LoadLetzterEintrag()
@@ -35,6 +36,7 @@ namespace EnrgyOverviewApp_WPF
                     MainWindow.datenS[i, 32] = sr1.ReadLine();
                 }
                 MainWindow.kwMulti = Convert.ToInt32(sr1.ReadLine());
+                MainWindow.centKW  = Convert.ToDouble(sr1.ReadLine());
                 sr1.Close();
             }
         }
@@ -44,11 +46,11 @@ namespace EnrgyOverviewApp_WPF
             
             if (File.Exists(MainWindow.fileName) == true)
             {
-                //MessageBox.Show("Dataei laden!");
+                // MessageBox.Show("Dataei laden!");
                 
                 StreamReader sr2 = new StreamReader(MainWindow.fileName);
 
-                for (int j = 0; j < 33; j++)
+                for (int j = 0; j < 34; j++)   // war 33
                 {
                     for  (int i = 0; i < 5; i++)
                     {
@@ -66,12 +68,14 @@ namespace EnrgyOverviewApp_WPF
         {
             StreamWriter sw3 = new StreamWriter(MainWindow.fileName);
 
-            for (int j = 0; j < 33; j++)
+            for (int j = 0; j < 34; j++) // war 33
             {
                     for (int i = 0; i < 5; i++)
                     {
                     sw3.WriteLine(MainWindow.datenS[i, j]);
                     }
+                
+
             }
             sw3.Close();
         }
@@ -79,7 +83,7 @@ namespace EnrgyOverviewApp_WPF
         {
             StreamWriter sw2 = new StreamWriter(MainWindow.fileName);
             //MessageBox.Show("Neues File wird gespeichert!");
-            for (int j = 0; j < 33; j++)
+            for (int j = 0; j < 34; j++)
             {
                 for  (int i = 0; i < 5; i++)
                 {

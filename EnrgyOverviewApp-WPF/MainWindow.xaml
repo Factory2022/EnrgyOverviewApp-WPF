@@ -49,20 +49,26 @@
             <Setter Property="HorizontalContentAlignment"   Value="Center" />
             <Setter Property="VerticalContentAlignment"     Value="Top" />
         </Style>
+
+        <LinearGradientBrush x:Key="Verlauf1" >
+            <GradientStop  Offset="0" Color="LightBlue"/>
+            <GradientStop  Offset="1" Color="Black" />
+        </LinearGradientBrush>
+        
     </Window.Resources>
-    
-    
-    <Grid>
-        
-        
-        
-        <TabControl Background="DarkGray">
+
+
+    <Grid Background="{StaticResource Verlauf1}">
+
+
+
+        <TabControl Background="{StaticResource Verlauf1}">
             <TabItem Header="     Stromverbrauch     ">
-             
-                 <StackPanel Margin="10" Background="Gray" Orientation="Horizontal">
+
+                <StackPanel Margin="10" Orientation="Horizontal"  Background="{StaticResource Verlauf1}">
                     
                     <!--Hier kommen die Schlaflächenrein-->
-                    <StackPanel Width="260" Orientation="Vertical" Margin="20">
+                    <StackPanel Width="260" Orientation="Vertical" Margin="20" Background="{StaticResource Verlauf1}">
                         <StackPanel 
                             Orientation="Horizontal" 
                             HorizontalAlignment="Left"
@@ -175,10 +181,169 @@
                             
                         </Label>
 
+                        <!--Kosten in Cent je KW-->
+                        <Label 
+                            
+                            Width="100" 
+                            Height="50" 
+                            Content=""
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"                            
+                            >
+                        </Label>
+
+                        <Label 
+                            
+                            Width="260" 
+                            Height="40" 
+                            Content="Kosten in Cent / KW"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"  
+                            Foreground="White"
+                            >
+                        </Label>
+
+                        <StackPanel 
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Left"
+                            Background="LightBlue"  
+                            >
+                            <Button 
+                                Click="Kosten_Minus"
+                                Content="     -      "  
+                                Background="IndianRed" 
+                                BorderBrush="Black" 
+                                BorderThickness="1"
+                                />
+
+                            <Label
+                            Width="130"
+                            Height="35"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            HorizontalContentAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Content="1 ct"
+                            >
+
+                            </Label>
+                            <Button
+                                Click="Kosten_Plus"
+                                Content="     +      " 
+                                Background="LightGreen" 
+                                BorderBrush="Black" 
+                                BorderThickness="1" >
+                            </Button>
+                        </StackPanel>
+
+                        <StackPanel 
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Left"
+                            Background="LightBlue"  
+                            >
+                            <Button 
+                                Click="Kosten_Nachkomma_Minus"
+                                Content="     -      "  
+                                Background="IndianRed" 
+                                BorderBrush="Black" 
+                                BorderThickness="1"
+                                />
+
+                            <Label
+                            Width="130"
+                            Height="35"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            HorizontalContentAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Content="0,1 ct"
+                            >
+
+                            </Label>
+                            <Button
+                                Click="Kosten_Nachkomma_Plus"
+                                Content="     +      " 
+                                Background="LightGreen" 
+                                BorderBrush="Black" 
+                                BorderThickness="1" >
+                            </Button>
+                        </StackPanel>
+
+                        <StackPanel 
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Left"
+                            Background="LightBlue"  
+                            >
+                            <Button 
+                                Click="Kosten_Nachkomma2_Minus"
+                                Content="     -      "  
+                                Background="IndianRed" 
+                                BorderBrush="Black" 
+                                BorderThickness="1"
+                                />
+
+                            <Label
+                            Width="130"
+                            Height="35"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            HorizontalContentAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Content="0,01 ct"
+                            >
+
+                            </Label>
+                            <Button
+                                Click="Kosten_Nachkomma2_Plus"
+                                Content="     +      " 
+                                Background="LightGreen" 
+                                BorderBrush="Black" 
+                                BorderThickness="1" >
+                            </Button>
+                        </StackPanel>
+
+                        <Label
+                            x:Name="lbl_Kosten_KW"
+                            Height="50"
+                            Foreground="White"
+                            HorizontalContentAlignment="Center"
+                            FontSize="30"
+                            FontWeight="Bold"
+                            Content="31,29 CT"
+                            >
+                        </Label>
+                        <Label 
+                            
+                            Width="260" 
+                            Height="40" 
+                            Content="Kosten im Monat in €"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"  
+                            Foreground="White"
+                            >
+                        </Label>
+                        <Label 
+                            x:Name="KostenImMonat"
+                            Width="260" 
+                            Height="50" 
+                            FontSize="30"
+                            Content="100,00 €"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"  
+                            Foreground="White"
+                            >
+                        </Label>
+
                     </StackPanel>
                     <ScrollViewer x:Name="scroll">
 
-                        <StackPanel Margin="10" Orientation="Vertical"  HorizontalAlignment="Center">
+                        <StackPanel Margin="10" Orientation="Vertical"  HorizontalAlignment="Center" Background="Gray">
 
 
                             <StackPanel Margin="10" Orientation="Horizontal" HorizontalAlignment="Center">
