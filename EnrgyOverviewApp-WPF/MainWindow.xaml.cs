@@ -63,8 +63,10 @@ namespace EnrgyOverviewApp_WPF
 
             fileName = monat + "-" + jahr + ".txt";     //Name der Monatsberichtsdatei
             Files.LoadMonthList();                      // Liste der vorhandenen Monate laden
-            Files.LoadLetzterEintrag();                 // Letzen Eintrag laden - wenn neuer Monat beginnt, bekomme ich so die Abschlsswerte vom Vormonat
+            // Files.LoadLetzterEintrag();                 // Letzen Eintrag laden - wenn neuer Monat beginnt, bekomme ich so die Abschlsswerte vom Vormonat
+
             Files.LoadMonth();
+            Files.LoadLetzterEintrag();  // nun werden die Felder 0-5 in x, 32 überschrieben
             DatenEintragen();
 
 
@@ -226,8 +228,13 @@ namespace EnrgyOverviewApp_WPF
                     else break;
                 }
                 
+                MessageBox.Show(Convert.ToString(heute-merker));
+                
+
                 wert1 = Convert.ToInt32(datenS[1, heute]);           // Aktueller Eintrag
-                wert2 = Convert.ToInt32(datenS[1, heute-merker]);    // letzter Eintrag
+
+                if (heute-merker == 0) wert2 = Convert.ToInt32(datenS[1, 32]);
+                else wert2 = Convert.ToInt32(datenS[1, heute-merker]);    // letzter Eintrag
 
                 ergebnis = (wert1 - wert2) / (merker);
                 
@@ -236,6 +243,7 @@ namespace EnrgyOverviewApp_WPF
                     datenS[3, i] = Convert.ToString(ergebnis);
                 }
                 datenS[2, heute] = Convert.ToString(wert1-wert2);
+                
             }
             else datenS[3, heute] = datenS[2, heute];
 
