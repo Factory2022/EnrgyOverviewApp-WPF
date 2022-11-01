@@ -228,7 +228,7 @@ namespace EnrgyOverviewApp_WPF
                     else break;
                 }
                 
-                MessageBox.Show(Convert.ToString(heute-merker));
+                //MessageBox.Show(Convert.ToString(heute-merker));
                 
 
                 wert1 = Convert.ToInt32(datenS[1, heute]);           // Aktueller Eintrag
